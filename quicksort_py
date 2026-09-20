@@ -1,0 +1,39 @@
+import random
+class QuickSort3ways:
+
+    def quickSort3ways(self, arr, l,r):
+        if l>=r:
+            return
+
+        p_idx=random.randint(l,r)
+        arr[l],arr[p_idx]=arr[p_idx],arr[l]
+        v=arr[l]
+
+
+        lt=l
+        gt=r+1
+        i=l+1
+
+        #arr[l+1,lt]<v;arr[lt+1,i-1]==v;arr[i,gt]>v
+        while i<gt:
+            if arr[i] < v:
+                lt += 1
+                arr[lt], arr[i] = arr[i], arr[lt]
+                i += 1
+            elif arr[i] > v:
+                gt -= 1
+                arr[i], arr[gt] = arr[gt], arr[i]
+            else:
+                i += 1
+
+        arr[l], arr[lt] = arr[lt], arr[l]
+
+        self.quickSort3ways(arr, l, lt - 1)
+        self.quickSort3ways(arr, gt, r)
+
+if __name__ == "__main__":
+    qs = QuickSort3ways()
+    nums = [2, 0, 2, 1, 1, 0, 5, 3, 3]
+    qs.quickSort3ways(nums, 0, len(nums) - 1)
+    print(nums)
+
